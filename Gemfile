@@ -23,3 +23,5 @@ gem 'yajl-ruby'
 gem 'addressable' # TODO: Gah.
 gem 'postrank-uri'
 
+gem 'flock'
+
