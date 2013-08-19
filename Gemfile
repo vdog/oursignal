@@ -11,6 +11,7 @@ gem 'sass'
 gem 'sinatra'
 
 # Business.
+gem 'swift-db-postgres'
 gem 'swift'
 
 # Scraping.
