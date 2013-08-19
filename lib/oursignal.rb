@@ -13,6 +13,7 @@ end
 
 # Persistence.
 require 'swift'
+require 'swift/adapter/postgres'
 Swift.setup :default, Swift::Adapter::Postgres, db: 'oursignal'
 
 # Logging.
