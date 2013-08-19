@@ -20,7 +20,7 @@ if options.key?(:port)
 end
 
 after_fork do |server,worker|
-  Swift.setup(:default, Swift::DB::Postgres, db: 'oursignal')
+  Swift.setup(:default, Swift::Adapter::Postgres, db: 'oursignal')
 end
 
 preload_app true
