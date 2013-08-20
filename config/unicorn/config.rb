@@ -7,8 +7,8 @@ UNICORN_CONFIG = {
   production: {
     socket:  '/tmp/oursignal-unicorn.sock',
     pidfile: '/tmp/oursignal-unicorn.pid',
-    stderr:  '/var/log/oursignal-unicorn.stderr.log',
-    stdout:  '/var/log/oursignal-unicorn.stdout.log',
+    stderr:  '/home/oursignal/oursignal-unicorn.stderr.log',
+    stdout:  '/home/oursignal/oursignal-unicorn.stdout.log',
     backlog: 1024,
     workers: 4,
   },
