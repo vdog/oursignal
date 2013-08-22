@@ -30,13 +30,15 @@ def unicorn_pid env
 end
 
 def start_unicorn env
-  cmd = [ "cd #{ROOT} && bundle exec unicorn" ]
-  cmd << "-E #{env}"
-  cmd << '-c %s/config/unicorn/unicorn.rb' % ROOT
-  cmd << '-D' if env == 'production'
+  cmd = [ "cd #{ROOT} && bundle exec puma" ]
+  cmd << "-e #{env}"
+  cmd << "-b unix:///tmp/oursignal.socket"
+  #cmd << '-C %s/config/unicorn/unicorn.rb' % ROOT
+  cmd << '-d' if env == 'production'
   cmd << ROOT + '/config.ru'
 
   puts 'Starting Unicorn ... '
+  puts cmd.join(' ')
   if system(cmd.join(' '))
     puts 'OK'
   else
