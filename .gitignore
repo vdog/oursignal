@@ -6,6 +6,7 @@
 # App.
 bin/*
 !bin/oursignal*
+!bin/phantomjs*
 tmp/*
 !tmp/.gitkeep
 run/*
