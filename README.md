@@ -1,6 +1,6 @@
-# Oursignal 0.3
+# OURSIGNAL&sup2;
 
-Experimental Oursignal.
+Experimental Oursignal modified to run on ec2 centos images.  See it here: http://tech.locavore-roar.com
 
 ## Planned 0.3 features
 
