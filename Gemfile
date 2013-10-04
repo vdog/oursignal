@@ -2,8 +2,8 @@
 source 'http://rubygems.org'
 
 # Web.
-gem 'unicorn'
-#gem 'puma'
+#gem 'unicorn'
+gem 'puma'
 gem 'compass'
 gem 'haml'
 gem 'rack'
