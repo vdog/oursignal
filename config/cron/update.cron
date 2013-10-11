@@ -12,4 +12,4 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 */5 * * * * cd /opt/apps/oursignal && ./bin/oursignal-killer
 
 # Save timestep.json every 5 minutes
-*/5 * * * * sudo curl http://tech.locavore-roar.com/timestep.json -o /opt/apps/oursignal/public/js/timestep.json
+*/5 * * * * curl http://tech.locavore-roar.com/timestep.json -o /opt/apps/oursignal/public/js/timestep.json -s
