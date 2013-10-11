@@ -10,3 +10,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # Schedule killer every 5 minutes.
 */5 * * * * cd /opt/apps/oursignal && ./bin/oursignal-killer
+
+# Save timestep.json every 5 minutes
+*/5 * * * * sudo curl http://tech.locavore-roar.com/timestep.json -o /opt/apps/oursignal/public/js/timestep.json
