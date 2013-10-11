@@ -45,6 +45,13 @@
   * Timeline UI.
 
   ## Changelog
+
+  ### 10/11/2013
+  * Killed open metadata fault.  You can still turn it on if you wish to view the scores.
+  * Migrated from unicorn to puma.
+  * So the free tier wasn't so free the first month.  EBS gives 2 million iop's for free.  Oursignal2 used 200 million.  I did no analysis, but I suspected dynamically generating /timestep.json was the cause since it required postgress queries to get the links.  Here are some steps to combat:
+  ** Moved dynamic URL /timestep.json to static URL /js/timestep.json.  Created a cron job to update timestep.json every 5 minutes after bucket and score updates.
+  ** Most static files are served up directly by nginx instead of the application server. (Yay Chef for making that easy).
   
   ### 08/28/2013
   * Moved to free tier on aws.  New management by Vince at http://www.locavore-roar.com

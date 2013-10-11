@@ -241,7 +241,7 @@ var oursignal = (function ($, oursignal) {
   */
   oursignal.options = (function (options) {
     var $open_meta, $open_blank;
-    options.open_meta  = true;
+    options.open_meta  = false;
     options.open_blank = true;
 
     function save () {
