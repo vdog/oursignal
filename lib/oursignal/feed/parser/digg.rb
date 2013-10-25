@@ -18,7 +18,7 @@ module Oursignal
         def parse source
           begin
 	    doc = Nokogiri::HTML(open(source)) || return
-	    doc.search ('//article').each do |entry|
+	    doc.search('//article').each do |entry|
               begin
                 score     = entry['data-diggs'].to_i || next
                 url       = entry['data-contenturl']        || next
@@ -30,7 +30,7 @@ module Oursignal
                 warn [error.message, *error.backtrace].join("\n")
               end
             end
-	    doc.search ('//story-trending-container').each do |entry|
+	    doc.search('//story-trending-container').each do |entry|
               begin
                 score     = entry['data-diggs'].to_i || next
                 url       = entry['data-contenturl']        || next
@@ -42,7 +42,7 @@ module Oursignal
                 warn [error.message, *error.backtrace].join("\n")
               end
             end
-	    doc.search ('//story-row').each do |entry|
+	    doc.search('//story-row').each do |entry|
               begin
                 score     = entry['data-diggs'].to_i || next
                 url       = entry['data-contenturl']        || next
