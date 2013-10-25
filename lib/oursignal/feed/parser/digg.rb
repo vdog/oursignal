@@ -1,4 +1,5 @@
-require 'yajl'
+require 'nokogiri'
+require 'open-uri'
 
 require 'oursignal/feed/parser'
 
@@ -11,18 +12,18 @@ module Oursignal
         end
 
         def urls
-          %w{http://services.digg.com/2.0/story.getTopNews?type=json}
+          %w{http://digg.com}
         end
 
         def parse source
           begin
-            data = Yajl.load(source, symbolize_keys: true) || return
-            data[:stories].each do |entry|
+	    doc = Nokogiri::HTML(open(source)) || return
+	    doc.search ('//article').each do |entry|
               begin
-                score     = entry[:diggs].to_i || next
-                url       = entry[:url]        || next
-                title     = entry[:title]
-                entry_url = entry[:permalink]
+                score     = entry['data-diggs'].to_i || next
+                url       = entry['data-contenturl']        || next
+                title     = entry.search('a.story-title-link')[0].content.strip
+                entry_url = entry['data-contenturl']
 
                 Entry.upsert url: entry_url, feed_id: feed.id, link: {url: url, score_digg: score, title: title}
               rescue => error
