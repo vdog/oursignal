@@ -30,6 +30,30 @@ module Oursignal
                 warn [error.message, *error.backtrace].join("\n")
               end
             end
+	    doc.search ('//story-trending-container').each do |entry|
+              begin
+                score     = entry['data-diggs'].to_i || next
+                url       = entry['data-contenturl']        || next
+                title     = entry.search('a.story-link')[0].content.strip
+                entry_url = entry['data-contenturl']
+
+                Entry.upsert url: entry_url, feed_id: feed.id, link: {url: url, score_digg: score, title: title}
+              rescue => error
+                warn [error.message, *error.backtrace].join("\n")
+              end
+            end
+	    doc.search ('//story-row').each do |entry|
+              begin
+                score     = entry['data-diggs'].to_i || next
+                url       = entry['data-contenturl']        || next
+                title     = entry.search('a.story-link')[0].content.strip
+                entry_url = entry['data-contenturl']
+
+                Entry.upsert url: entry_url, feed_id: feed.id, link: {url: url, score_digg: score, title: title}
+              rescue => error
+                warn [error.message, *error.backtrace].join("\n")
+              end
+            end
           rescue => error
             warn [error.message, *error.backtrace].join("\n")
           end
