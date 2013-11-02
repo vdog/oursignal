@@ -10,7 +10,7 @@ module Oursignal
       class Digg < Parser
         def urls
           urls = []
-	  urls << 'http://digg'
+	  urls << 'http://digg.com'
           urls
         end
 
@@ -18,34 +18,16 @@ module Oursignal
           feed = Feed.find('http://digg.com') || return
 	  doc = Nokogiri::HTML(source)
 	  doc.search('//article').each do |entry|
-		  if(entry['data-contenturl'].match?(url)) then
-	            link      = links.detect{|link| link.match?(entry['data-contenturl'])} || next
-        	    score     = entry['data-digg-score']
-	            title     = entry.search('a.story-title-link')[0].content.strip
-        	    entry_url = entry['data-contenturl']
-	            puts "digg:link(#{link.id}, #{link.url}): #{score}"
-        	    Entry.upsert url: entry_url, feed_id: feed.id, link: {url: link.url, score_digg: score, title: title}
-		  end
-          end
-	  doc.search('//story-trending-container').each do |entry|
-		  if(entry['data-contenturl'].match?(url)) then
-	            link      = links.detect{|link| link.match?(entry['data-contenturl'])} || next
-        	    score     = entry['data-digg-score']
-	            title     = entry.search('a.story-link')[0].content.strip
-        	    entry_url = entry['data-contenturl']
-	            puts "digg:link(#{link.id}, #{link.url}): #{score}"
-        	    Entry.upsert url: entry_url, feed_id: feed.id, link: {url: link.url, score_digg: score, title: title}
-		  end
-          end
-	  doc.search('//story-row').each do |entry|
-		  if(entry['data-contenturl'].match?(url)) then
-	            link      = links.detect{|link| link.match?(entry['data-contenturl'])} || next
-        	    score     = entry['data-digg-score']
-	            title     = entry.search('a.story-link')[0].content.strip
-        	    entry_url = entry['data-contenturl']
-	            puts "digg:link(#{link.id}, #{link.url}): #{score}"
-        	    Entry.upsert url: entry_url, feed_id: feed.id, link: {url: link.url, score_digg: score, title: title}
-		  end
+		begin
+	  		link      = links.detect{|link| link.match?(entry['data-contenturl'])} || next
+        		score     = entry['data-digg-score'].gsub(',','')
+	        	title     = entry.search('a.story-title-link')[0].content.strip
+        		entry_url = entry['data-contenturl']
+	        	puts "digg:link(#{link.id}, #{link.url}): #{score}"
+        		Entry.upsert url: entry_url, feed_id: feed.id, link: {url: link.url, score_digg: score, title: title}
+		rescue => error
+			warn [error.message, *error.backtrace].join("\n")
+		end
           end
         end
       end # Digg
