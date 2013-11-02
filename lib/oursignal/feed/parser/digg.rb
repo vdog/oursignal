@@ -26,11 +26,12 @@ module Oursignal
                 entry_url = entry['data-contenturl']
 
                 Entry.upsert url: entry_url, feed_id: feed.id, link: {url: url, score_digg: score, title: title}
+		puts "article Upsert'd " + entry_url
               rescue => error
                 warn [error.message, *error.backtrace].join("\n")
               end
             end
-	    doc.search('//story-trending-container').each do |entry|
+	    doc.search('.story-trending-container').each do |entry|
               begin
                 score     = entry['data-diggs'].to_i || next
                 url       = entry['data-contenturl']        || next
@@ -38,6 +39,7 @@ module Oursignal
                 entry_url = entry['data-contenturl']
 
                 Entry.upsert url: entry_url, feed_id: feed.id, link: {url: url, score_digg: score, title: title}
+		puts "trending Upsert'd " + entry_url
               rescue => error
                 warn [error.message, *error.backtrace].join("\n")
               end
@@ -50,6 +52,7 @@ module Oursignal
                 entry_url = entry['data-contenturl']
 
                 Entry.upsert url: entry_url, feed_id: feed.id, link: {url: url, score_digg: score, title: title}
+		puts "story-row Upsert'd " + entry_url
               rescue => error
                 warn [error.message, *error.backtrace].join("\n")
               end

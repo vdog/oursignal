@@ -40,5 +40,4 @@ require 'oursignal/score/parser/facebook'
 require 'oursignal/score/parser/google'
 require 'oursignal/score/parser/reddit'
 require 'oursignal/score/parser/twitter'
-# require 'oursignal/score/native/ycombinator'
 
