@@ -17,7 +17,7 @@ module Oursignal
 
         def parse source
           begin
-	    doc = Nokogiri::HTML(open(source)) || return
+	    doc = Nokogiri::HTML(source) || return
 	    doc.search('//article').each do |entry|
               begin
                 score     = entry['data-diggs'].to_i || next
