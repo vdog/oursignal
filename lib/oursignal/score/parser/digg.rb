@@ -21,6 +21,7 @@ module Oursignal
 		begin
 	  		link      = links.detect{|link| link.match?(entry['data-contenturl'])} || next
         		score     = entry['data-digg-score'].gsub(',','')
+        		score     = score.gsub('k','000')
 	        	title     = entry.search('a.story-title-link')[0].content.strip
         		entry_url = entry['data-contenturl']
 	        	puts "digg:link(#{link.id}, #{link.url}): #{score}"
