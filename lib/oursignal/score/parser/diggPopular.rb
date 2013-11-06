@@ -11,6 +11,7 @@ module Oursignal
         def urls
           urls = []
 	  urls << 'http://digg.com/api/news/popular.json'
+	  urls << 'http://digg.com/api/news/new.json'
           urls
         end
 
