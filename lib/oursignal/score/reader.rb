@@ -25,6 +25,7 @@ module Oursignal
         multi = Curl::Multi.new
         multi.max_connects = 250
         sources.each do |source|
+          puts source.class.name
           parser = source.new(links)
           parser.urls.each do |url|
             easy = Curl::Easy.new(url) do |e|
