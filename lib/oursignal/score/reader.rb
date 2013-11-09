@@ -54,7 +54,7 @@ module Oursignal
                 end
               end
               e.on_failure do |response, code|
-                warn ['Score Reader GET Error:', url.to_s, code].join("\n")
+                warn ['(on_failure)Score Reader GET Error:', url.to_s, code].join("\n")
               end
             end
             multi.add easy
