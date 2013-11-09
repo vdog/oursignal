@@ -23,14 +23,14 @@ module Oursignal
 
         # TODO: Safe distance from (ulimit -n) - (lsof | wc -l)
         multi = Curl::Multi.new
-        multi.max_connects = 6
+        multi.max_connects = 250
         sources.each do |source|
           parser = source.new(links)
           parser.urls.each do |url|
             easy = Curl::Easy.new(url) do |e|
               e.resolve_mode          = :ipv4 # IPv6 has issues on some sites!?
               e.follow_location       = true
-              e.timeout               = 180
+              e.timeout               = 0
               e.headers['User-Agent'] = Oursignal::USER_AGENT
               e.on_complete do |response|
                 begin
