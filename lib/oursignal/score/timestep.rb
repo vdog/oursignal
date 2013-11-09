@@ -50,13 +50,11 @@ module Oursignal
           scores_sth = Oursignal.db.prepare('select * from scores where link_id = ? and bucket > 0 order by timestep_id desc')
           links.each_with_index do |link, index|
             scores_ts += 1
-		puts "Injecting..."
             bucket_scores = Score.sources.inject([]) do |acc, source|
               acc << buckets[source].at(link[source]) if buckets[source]
               acc
             end.select{|score| score > 0}
             next if bucket_scores.empty?
-		puts "bucket_scores not empty"
 
             bucket_average = bucket_scores.inject(:+) / bucket_scores.size
             bucket_bonus   = bucket_scores.size.to_f / Score.sources.size
@@ -78,7 +76,6 @@ module Oursignal
             # score = [bucket - (link.delete(:seconds).to_i * decay), 0].max
 
             # Add a score.
-		puts "Creating score for timescep_id: %d, bucket: %s, link: %s" % [step.id, bucket, link]
             Score.create({timestep_id: step.id, score: score, ema: ema, bucket: bucket}.merge(link))
           end
           puts "created %d scores in\t%10.4fs" % [scores_ts, Time.now - now]
