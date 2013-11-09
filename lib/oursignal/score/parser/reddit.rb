@@ -15,16 +15,11 @@ module Oursignal
 
         def parse url, source
           puts "Reddit checking:  " + url
-          feed      = Feed.find('http://www.reddit.com') || return
-          puts "got feed"
+          feed      = Feed.find('http://reddit.com') || return
           entry     = Yajl.load(source, symbolize_keys: true)[:data][:children].first || return
-          puts "got entry"
           data      = entry[:data] || return
-          puts "got data"
           link      = links.detect{|link| link.match?(data[:url])} || return
-          puts "got link"
           score     = data[:score] || return
-          puts "got score"
           title     = data[:title]
           entry_url = 'http://www.reddit.com' + data[:permalink]
 
