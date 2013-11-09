@@ -27,6 +27,7 @@ module Oursignal
         end
 
         def inherited klass
+          puts klass.name
           self.all << klass
         end
       end
