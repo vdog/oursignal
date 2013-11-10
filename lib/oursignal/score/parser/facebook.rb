@@ -6,7 +6,7 @@ module Oursignal
       class Facebook < Parser
         def urls
           urls   = []
-          links.each_slice(25) do |slice|
+          links.each_slice(1) do |slice|
             # Facebook API has issues with ' and ". Bad luck.
             escaped = slice.reject{|link| link.url.to_s =~ /['"]/}.map{|link| CGI.escape(link.url)}
             urls << 'http://api.ak.facebook.com/restserver.php?v=1.0&method=links.getStats&format=json&urls=' + escaped.join(',')
