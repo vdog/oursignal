@@ -65,7 +65,7 @@ module Oursignal
             # Will reduce the number of results (not queries) and will reduce the number of loops in Math::Ema by the
             # count. For now use this just in case the smoothing factor needs to be changed to a fixed number.
             scores = scores_sth.execute(link[:link_id]).entries.push(bucket: bucket)
-            puts "finished getting scores for link_id: " + link[:link_id].to_s
+            puts "finished getting score #{index} of #{links.count} for link_id: " + link[:link_id].to_s
 
             # ema with smoothing factor 2/(N+1)
             ema = Math::Ema.new((2.0 / (scores.count + 1)), scores.shift[:bucket]).update(scores.map{|row| row[:bucket]})
