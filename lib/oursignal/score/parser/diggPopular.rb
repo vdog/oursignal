@@ -1,5 +1,5 @@
 require 'oursignal/score/parser'
-require 'nokogiri'
+require 'yajl'
 
 module Oursignal
   class Score
@@ -7,31 +7,30 @@ module Oursignal
       #--
       # NOTE: While digging around the rate limit appears to be 5000 requests every 30 minutes according to the
       # X-RateLimit-* headers the documentation said would exist. Should be plenty once chunking is in place.
-      class Digg < Parser
+      class DiggPopular < Parser
         def urls
           urls = []
-	  urls << 'http://digg.com'
+	  urls << 'http://digg.com/api/news/popular.json'
+	  urls << 'http://digg.com/api/news/new.json'
           urls
         end
 
         def parse url, source
           feed = Feed.find('http://digg.com') || return
-	  doc = Nokogiri::HTML(source)
-	  doc.search('//article').each do |entry|
+          Yajl.load(source, symbolize_keys: true)[:data][:feed].each do |entry|
 		begin
-	  		link      = links.detect{|link| link.match?(entry['data-contenturl'])} || next
-        		score     = entry['data-digg-score'].gsub(',','')
-        		score     = score.gsub('k','000')
-	        	title     = entry.search('a.story-title-link')[0].content.strip
-        		entry_url = entry['data-contenturl']
-	        	puts "digg:link(#{link.id}, #{link.url}): #{score}"
+	  		link      = links.detect{|link| link.match?(entry[:content][:url])} || next
+        		score     = entry[:diggs][:count]
+	        	title     = entry[:content][:title]
+        		entry_url = entry[:content][:url]
+	        	puts "diggPopular:link(#{link.id}, #{link.url}): #{score}"
         		Entry.upsert url: entry_url, feed_id: feed.id, link: {url: link.url, score_digg: score, title: title}
 		rescue => error
 			warn [error.message, *error.backtrace].join("\n")
 		end
           end
         end
-      end # Digg
+      end # DiggPopular
     end # Parser
   end # Score
 end # Oursignal

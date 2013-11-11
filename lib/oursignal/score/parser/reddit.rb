@@ -14,7 +14,8 @@ module Oursignal
         end
 
         def parse url, source
-          feed      = Feed.find('http://www.reddit.com') || return
+          puts "Reddit checking:  " + url
+          feed      = Feed.find('http://reddit.com') || return
           entry     = Yajl.load(source, symbolize_keys: true)[:data][:children].first || return
           data      = entry[:data] || return
           link      = links.detect{|link| link.match?(data[:url])} || return
@@ -23,7 +24,7 @@ module Oursignal
           entry_url = 'http://www.reddit.com' + data[:permalink]
 
           puts "reddit:link(#{link.id}, #{link.url}):#{score}"
-          Entry.upsert url: entry_url, feed_id: feed.id, link: {url: url, score_reddit: score, title: title}
+          Entry.upsert url: entry_url, feed_id: feed.id, link: {url: link.url, score_reddit: score, title: title}
         end
       end # Reddit
     end # Parser

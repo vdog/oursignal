@@ -27,6 +27,7 @@ module Oursignal
         end
 
         def inherited klass
+          puts klass.name
           self.all << klass
         end
       end
@@ -36,9 +37,9 @@ end # Oursignal
 
 # TODO: Fugly factory is fugly.
 require 'oursignal/score/parser/digg'
+require 'oursignal/score/parser/diggPopular'
 require 'oursignal/score/parser/facebook'
 require 'oursignal/score/parser/google'
 require 'oursignal/score/parser/reddit'
 require 'oursignal/score/parser/twitter'
-# require 'oursignal/score/native/ycombinator'
 
