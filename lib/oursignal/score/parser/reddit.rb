@@ -14,7 +14,7 @@ module Oursignal
         end
 
         def parse url, source
-          puts "Reddit checking:  " + url
+ #         puts "Reddit checking:  " + url
           feed      = Feed.find('http://reddit.com') || return
           entry     = Yajl.load(source, symbolize_keys: true)[:data][:children].first || return
           data      = entry[:data] || return
