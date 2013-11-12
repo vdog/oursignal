@@ -13,7 +13,8 @@ module Math
 	upper = parts.size - 1
 	lower = 0
 	while (upper >= lower) do
-		puts "bucket %d %d" % upper, lower
+		puts "upper %d" % upper
+		puts "lower %d" % lower
 		idx = lower + (upper - lower) / 2
 		comp = parts[idx].to_f
 		if (value <= comp)
