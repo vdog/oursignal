@@ -18,7 +18,8 @@ module Oursignal
           feed      = Feed.find('http://reddit.com') || return
           entry     = Yajl.load(source, symbolize_keys: true)[:data][:children].first || return
           data      = entry[:data] || return
-          link      = links.detect{|link| link.match?(data[:url])} || return
+          #link      = links.detect{|link| link.match?(data[:url])} || return
+          link      = Link.find(data[:url])} || return
           score     = data[:score] || return
           title     = data[:title]
           entry_url = 'http://www.reddit.com' + data[:permalink]
