@@ -13,13 +13,8 @@ module Math
 	upper = parts.size - 1
 	lower = 0
 	while (upper >= lower) do
-		puts "upper %d" % upper
-		puts "lower %d" % lower
 		idx = lower + (upper - lower) / 2
 		comp = parts[idx].to_f
-		puts "idx %d" % idx
-		puts "comp %s" % parts[idx]
-		puts "value %d" % value
 		if (value <= comp)
 			find = idx
 			upper = idx - 1
