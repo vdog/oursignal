@@ -23,7 +23,7 @@ module Oursignal
 
         # TODO: Safe distance from (ulimit -n) - (lsof | wc -l)
         multi = Curl::Multi.new
-        multi.max_connects = 2
+        multi.max_connects = 250
         sources.each do |source|
           puts source.name
           parser = source.new(links)
