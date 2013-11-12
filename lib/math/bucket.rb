@@ -22,10 +22,9 @@ module Math
 		puts "value %d" % value
 		if (value <= comp)
 			find = idx
-		elsif (value > comp)
-			lower = idx + 1
-		else
 			upper = idx - 1
+		else
+			lower = idx + 1
 		end
 	end
 	#parts.each_with_index do |p, i| 
