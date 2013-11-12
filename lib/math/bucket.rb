@@ -17,6 +17,9 @@ module Math
 		puts "lower %d" % lower
 		idx = lower + (upper - lower) / 2
 		comp = parts[idx].to_f
+		puts "idx %d" % idx
+		puts "comp %s" % parts[idx]
+		puts "value %d" % value
 		if (value <= comp)
 			find = idx
 		elsif (value > comp)
