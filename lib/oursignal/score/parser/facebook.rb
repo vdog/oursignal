@@ -18,7 +18,8 @@ module Oursignal
           data = Yajl.load(source, symbolize_keys: true) || return
           data.each do |entry|
             begin
-              link  = links.detect{|link| link.match?(entry[:url])} || next
+              #link  = links.detect{|link| link.match?(entry[:url])} || next
+              link  = Link.find(entry[:url]) || next
               score = entry[:share_count] || next # Also like_count, comment_count, click_count and total_count if we need it.
 
               puts "facebook:link(#{link.id}, #{link.url}):#{score}"

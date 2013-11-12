@@ -24,7 +24,7 @@ module Oursignal
           # attributes.merge!(meta(attributes[:url])) if attributes[:content_type].to_s.match(/text\/html/)
         end
         link = super attributes
-        Screenshot.generate(link) rescue warn($!)
+        #Screenshot.generate(link) rescue warn($!)
         link
       end
 
