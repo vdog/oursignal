@@ -18,12 +18,12 @@ module Oursignal
         sources = Oursignal::Score::Parser.all
         links   = Link.execute(%q{
           select * from links
-          where created_at > now() - interval '6 hours'
+          where referred_at > now() - interval '24 hours'
         })
 
         # TODO: Safe distance from (ulimit -n) - (lsof | wc -l)
         multi = Curl::Multi.new
-        multi.max_connects = 250
+        multi.max_connects = 1000
         sources.each do |source|
           puts source.name
           parser = source.new(links)

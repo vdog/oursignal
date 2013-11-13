@@ -12,7 +12,8 @@ module Oursignal
 
         def parse url, source
           url   = CGI.parse(URI.parse(url).query)['url'][0] rescue return
-          link  = links.detect{|link| link.match?(url)} || return
+          #link  = links.detect{|link| link.match?(url)} || return
+          link  = Link.find(url) || return
           match = source.match(/window\.__SSR\s*=\s*{c:\s*(?<score>[\d.]+)/x) || return
 
           puts "google:link(#{link.id}, #{link.url}): #{match[:score]}"

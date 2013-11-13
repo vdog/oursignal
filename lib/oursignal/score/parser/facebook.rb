@@ -6,7 +6,7 @@ module Oursignal
       class Facebook < Parser
         def urls
           urls   = []
-          links.each_slice(1) do |slice|
+          links.each_slice(25) do |slice|
             # Facebook API has issues with ' and ". Bad luck.
             escaped = slice.reject{|link| link.url.to_s =~ /['"]/}.map{|link| CGI.escape(link.url)}
             urls << 'http://api.ak.facebook.com/restserver.php?v=1.0&method=links.getStats&format=json&urls=' + escaped.join(',')
@@ -18,7 +18,8 @@ module Oursignal
           data = Yajl.load(source, symbolize_keys: true) || return
           data.each do |entry|
             begin
-              link  = links.detect{|link| link.match?(entry[:url])} || next
+              #link  = links.detect{|link| link.match?(entry[:url])} || next
+              link  = Link.find(entry[:url]) || next
               score = entry[:share_count] || next # Also like_count, comment_count, click_count and total_count if we need it.
 
               puts "facebook:link(#{link.id}, #{link.url}):#{score}"
