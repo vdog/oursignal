@@ -11,7 +11,7 @@ module Oursignal
         end
 
         def urls
-          %w{http://digg.com/api/news/popular.json http://digg.com/api/news/new.json}
+          %w{http://digg.com/api/news/new.json}
         end
 
         def parse source
