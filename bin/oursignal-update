@@ -24,7 +24,6 @@ case option
     Oursignal::Feed::Reader.perform
     Oursignal::Score::Reader.perform
     Oursignal::Score::Timestep.perform
-    Oursignal::Score::Buckets.perform
   when 'feed'     then Oursignal::Feed::Reader.perform
   when 'score'    then Oursignal::Score::Reader.perform
   when 'timestep' then Oursignal::Score::Timestep.perform
