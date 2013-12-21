@@ -68,8 +68,8 @@ module Oursignal
             puts "finished getting score #{index} of #{links.count} for link_id: " + link[:link_id].to_s
 
             # ema with smoothing factor 2/(N+1)
-            #ema = Math::Ema.new((2.0 / (scores.count + 1)), scores.shift[:bucket]).update(scores.map{|row| row[:bucket]})
-            ema = Math::Ema.new(0.67, scores.shift[:bucket]).update(scores.map{|row| row[:bucket]})
+            ema = Math::Ema.new((2.0 / (scores.count + 1)), scores.shift[:bucket]).update(scores.map{|row| row[:bucket]})
+            #ema = Math::Ema.new(0.67, scores.shift[:bucket]).update(scores.map{|row| row[:bucket]})
 
             # Straight linear decay. KISS.
             decay = ema.to_f / LIFETIME
