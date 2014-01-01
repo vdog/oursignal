@@ -79,6 +79,7 @@ module Oursignal
 
             # Add a score.
             Score.create({timestep_id: step.id, score: score, ema: ema, bucket: bucket}.merge(link))
+	    puts link[:link_id].to_s + ": score: #{score}, ema: #{ema}, bucket: #{bucket}"
           end
           puts "created %d scores in\t%10.4fs" % [scores_ts, Time.now - now]
 
