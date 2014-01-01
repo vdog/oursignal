@@ -11,7 +11,7 @@ module Oursignal
         end
 
         def urls
-          %w{http://www.reddit.com/.json}
+          %w{http://www.reddit.com/r/technology/.json, http://www.reddit.com/r/Programming/.json, http://www.reddit.com/r/Linux/.json, http://www.reddit.com/r/artificial/.json, http://www.reddit.com/r/CompSci/.json, http://www.reddit.com/r/algorithms/.json}
         end
 
         def parse source
