@@ -12,7 +12,7 @@ module Oursignal
             total, max = Oursignal.db.execute("select count(*) as total, max(#{source}) from links where #{source} > 0 and (now() - updated_at < interval'1 days')").first.values_at(:total, :max)
             next unless total > 100
 
-            score_st = Oursignal.db.prepare("select #{source} as score from links where #{source} > 0 order by #{source} limit 1 offset ?")
+            score_st = Oursignal.db.prepare("select #{source} as score from links where #{source} > 0 and (now() - updated_at < interval '1 days') order by #{source} limit 1 offset ?")
             buckets  = (0..99).map do |offset|
               score_st.execute((total * (offset.to_f / 100)).to_i).first[:score].to_f
             end
