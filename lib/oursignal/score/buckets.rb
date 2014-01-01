@@ -9,7 +9,7 @@ module Oursignal
 	#	raise "Vince wants to stop here"
           Oursignal.db.execute('delete from score_buckets') # Last bucket run.
           Score.sources.each do |source|
-            total, max = Oursignal.db.execute("select count(*) as total, max(#{source}) from links where #{source} > 0").first.values_at(:total, :max)
+            total, max = Oursignal.db.execute("select count(*) as total, max(#{source}) from links where #{source} > 0 and (now() - updated_at < interval'1 days')").first.values_at(:total, :max)
             next unless total > 100
 
             score_st = Oursignal.db.prepare("select #{source} as score from links where #{source} > 0 order by #{source} limit 1 offset ?")
